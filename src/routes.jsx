@@ -5,7 +5,8 @@
  * caché) antes de pintar la página y la vista nunca tiene que gestionar el
  * estado de carga por su cuenta.
  */
-import Layout from './components/Layout';
+import Layout, { LayoutFallback } from './components/Layout';
+import RouteError from './components/RouteError';
 import ProductListPage from './pages/ProductListPage';
 import ProductDetailPage from './pages/ProductDetailPage';
 import { getProduct, getProducts } from './api/products';
@@ -14,6 +15,7 @@ export const routes = [
   {
     path: '/',
     element: <Layout />,
+    hydrateFallbackElement: <LayoutFallback />,
     children: [
       {
         index: true,
@@ -21,6 +23,7 @@ export const routes = [
         loader: () => getProducts(),
         // Escribir en el buscador cambia `?q=`; eso no debe volver a lanzar el loader.
         shouldRevalidate: ({ currentUrl, nextUrl }) => currentUrl.pathname !== nextUrl.pathname,
+        errorElement: <RouteError />,
       },
       {
         path: 'product/:id',
@@ -29,6 +32,14 @@ export const routes = [
         handle: {
           crumb: (product) => (product ? `${product.brand} ${product.model}` : 'Detalle'),
         },
+        errorElement: <RouteError />,
+      },
+      {
+        path: '*',
+        loader: () => {
+          throw new Response('Not found', { status: 404 });
+        },
+        errorElement: <RouteError />,
       },
     ],
   },
