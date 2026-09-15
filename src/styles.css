@@ -325,6 +325,88 @@ main.container {
   color: var(--muted);
 }
 
+/* Detalle */
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 24px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.back-link:hover {
+  color: var(--ink);
+}
+
+.detail {
+  display: grid;
+  gap: 32px;
+}
+
+@media (min-width: 768px) {
+  .detail {
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    align-items: start;
+  }
+
+  .detail .product-image {
+    position: sticky;
+    top: 96px;
+  }
+}
+
+.detail__info {
+  display: grid;
+  gap: 32px;
+}
+
+.description__brand {
+  margin: 0;
+  color: var(--muted);
+}
+
+.description__model {
+  margin: 2px 0 8px;
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.description__price {
+  margin: 0;
+  font-size: 20px;
+}
+
+.section-title {
+  margin: 32px 0 8px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.specs {
+  margin: 0;
+  border-top: 1px solid var(--line);
+}
+
+.specs__row {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 16px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 14px;
+}
+
+.specs dt {
+  color: var(--muted);
+}
+
+.specs dd {
+  margin: 0;
+}
+
 @media (max-width: 640px) {
   .header__inner {
     flex-wrap: wrap;

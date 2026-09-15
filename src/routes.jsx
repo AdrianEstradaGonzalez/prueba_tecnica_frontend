@@ -7,7 +7,8 @@
  */
 import Layout from './components/Layout';
 import ProductListPage from './pages/ProductListPage';
-import { getProducts } from './api/products';
+import ProductDetailPage from './pages/ProductDetailPage';
+import { getProduct, getProducts } from './api/products';
 
 export const routes = [
   {
@@ -20,6 +21,14 @@ export const routes = [
         loader: () => getProducts(),
         // Escribir en el buscador cambia `?q=`; eso no debe volver a lanzar el loader.
         shouldRevalidate: ({ currentUrl, nextUrl }) => currentUrl.pathname !== nextUrl.pathname,
+      },
+      {
+        path: 'product/:id',
+        element: <ProductDetailPage />,
+        loader: ({ params }) => getProduct(params.id),
+        handle: {
+          crumb: (product) => (product ? `${product.brand} ${product.model}` : 'Detalle'),
+        },
       },
     ],
   },
